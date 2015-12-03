@@ -1,6 +1,6 @@
 {
   "name": "gulp-folder-index",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Convert a buffer of files into a JSON representation of the folder structure with configurable file extension adjustments",
   "keywords": [
     "gulpplugin",
@@ -17,8 +17,7 @@
   },
   "repository": "https://github.com/davesag/gulp-folder-index",
   "scripts": {
-    "test": "istanbul test _mocha --report html -- test/*.js --reporter spec",
-    "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "test": "istanbul test _mocha --report html -- test/*.js --reporter spec"
   },
   "dependencies": {
     "gulp-util": "^3.0.7",
