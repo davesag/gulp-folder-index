@@ -44,7 +44,14 @@ module.exports = function (config) {
     if (file.isBuffer()) {
       let filePath = (config.prefix ? `${config.prefix}/` : "") + file.path.replace(file.base, "");
       filePath = filePath.replace(path.extname(filePath), extension);
-      // let segments = path.replace(/\\/g,"/").split("/");
+      if (config.directory) {
+        let directory = filePath.replace(/(?!.*\/).*/g, "");
+        let directoryAndFilePath = {
+          "directory": directory,
+          "path": filePath
+        }
+        filePath = directoryAndFilePath;
+      }
       _index.push(filePath);
     }
     return callback();
