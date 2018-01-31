@@ -21,7 +21,8 @@ gulp.src('app/**/*.yml')
   .pipe(folderIndex({
     extension: '.json',       // default
     filename: 'index.json',   // default
-    prefix: ''                // default
+    prefix: '',               // default
+    directory: false          // default
   }))
   .pipe(gulp.dest('dist'));
 
