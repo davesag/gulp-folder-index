@@ -17,12 +17,21 @@
   },
   "repository": "https://github.com/davesag/gulp-folder-index",
   "scripts": {
-    "test": "istanbul test _mocha --report html -- test/*.js --reporter spec"
+    "precommit": "lint-staged",
+    "prettier": "prettier --single-quote --no-semi --write 'src/**/*.{js,json}'",
+    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
+    "test": "istanbul test _mocha --report html -- test/*.js --reporter spec",
+    "lint": "eslint ."
+  },
+  "lint-staged": {
+    "src/**/*.{js,json}": [
+      "prettier --singlequote --no-semi --write",
+      "git add"
+    ]
   },
   "dependencies": {
     "ansi-colors": "^1.0.1",
     "fancy-log": "^1.3.2",
-    "gulp-util": "^3.0.8",
     "lodash.isempty": "^4.4.0",
     "plugin-error": "^1.0.1",
     "through2": "^2.0.3",
@@ -31,10 +40,22 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "coveralls": "^3.0.0",
+    "eslint": "^4.15.0",
+    "eslint-config-prettier": "^2.8.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-mocha": "^4.11.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
     "gulp": "^3.9.1",
+    "husky": "^0.14.3",
     "istanbul": "^0.4.5",
+    "lint-staged": "^6.1.0",
     "mocha": "^5.0.0",
-    "mocha-lcov-reporter": "^1.3.0"
+    "mocha-lcov-reporter": "^1.3.0",
+    "prettier": "^1.10.2"
   },
   "engines": {
     "node": ">=4.1",
