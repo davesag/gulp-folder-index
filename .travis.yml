@@ -1,9 +1,23 @@
+dist: trusty
 language: node_js
-notifications:
-  email: false
+
 node_js:
-  - '4.1'
-  - '5.0'
-  - '5.1'
+- 8.9.4
+- 9.4.0
+
+cache:
+  directories:
+  - node_modules
+
+install:
+- npm install
+
+script:
+- npm run lint
+- npm test
+
 after_script:
   - npm run coveralls
+
+notifications:
+  email: false

@@ -127,6 +127,10 @@ Given the directory structure above, specifiying `directory: true` would generat
 ]
 ```
 
+## Contributing
+
+Contributions are welcomed.  Please see [the contributing notes](CONTRIBUTING.md) for details.
+
 ## License
 
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
