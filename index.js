@@ -1,9 +1,12 @@
 'use strict';
 
-let through  = require("through2");
-let isEmpty  = require("lodash.isempty");
-let path     = require("path");
-let gutil    = require("gulp-util");
+const through = require("through2");
+const isEmpty = require("lodash.isempty");
+const path = require("path");
+const PluginError = require('plugin-error')
+const Vinyl = require('vinyl')
+const colours = require('ansi-colors')
+const log = require('fancy-log')
 
 module.exports = function (config) {
 
@@ -30,13 +33,13 @@ module.exports = function (config) {
     if (!firstFile) firstFile = file;
 
     if (file.isNull()) {
-      this.emit("error", new gutil.PluginError(PLUGIN_NAME, ERRORS.nullFile));
+      this.emit("error", new PluginError(PLUGIN_NAME, ERRORS.nullFile));
       this.emit("end");
       return callback();
     }
 
     if (file.isStream()) {
-      this.emit("error", new gutil.PluginError(PLUGIN_NAME, ERRORS.noStreams));
+      this.emit("error", new PluginError(PLUGIN_NAME, ERRORS.noStreams));
       this.emit("end");
       return callback();
     }
@@ -60,20 +63,20 @@ module.exports = function (config) {
   return through.obj(folderIndex,
     function(cb) {
       if (isEmpty(_index)) {
-        this.emit("error", new gutil.PluginError(PLUGIN_NAME, ERRORS.emptyFolder));
+        this.emit("error", new PluginError(PLUGIN_NAME, ERRORS.emptyFolder));
         this.emit("end");
         return cb();
       }
 
       //create and push new vinyl file
-      this.push(new gutil.File({
+      this.push(new Vinyl({
         cwd: firstFile.cwd,
         base: firstFile.cwd,
         path: path.join(firstFile.cwd, output),
         contents: new Buffer(JSON.stringify(_index))
       }));
 
-      gutil.log("Generated", gutil.colors.blue(output));
+      log("Generated", colours.blue(output));
       return cb();
     }
   );

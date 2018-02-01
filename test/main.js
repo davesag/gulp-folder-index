@@ -5,7 +5,7 @@ require("mocha");
 let fs          = require("fs");
 let expect      = require("chai").expect;
 let gulp        = require("gulp");
-let gutil       = require("gulp-util");
+const Vinyl = require('vinyl')
 let folderIndex = require("../");
 
 describe("folderIndex", function(){
@@ -179,7 +179,7 @@ describe("folderIndex", function(){
 
   it("emits an error if given a stream", function (done) {
 
-    let srcFile = new gutil.File({
+    let srcFile = new Vinyl({
       path: "test/fixtures/index.yml",
       cwd: "test/",
       base: "test/fixtures",
