@@ -130,6 +130,53 @@ describe("folderIndex", function(){
       .pipe(gulp.dest("test"));
   });
 
+  it("generates the right JSON file with directory and path", function(done) {
+    let fi = folderIndex({
+      filename: ".tmp/index.json",
+      directory: true
+    });
+
+    fi.on("data", function(data) {
+      expect(data.path).to.contain(".tmp/index.json");
+      let contents = data.contents.toString();
+      let expectedOutput = [
+        {
+          'directory': '',
+          'path': 'index.json'
+        },
+        {
+          'directory': 'nested-folder-1/',
+          'path': 'nested-folder-1/faq.json'
+        },
+        {
+          'directory': 'nested-folder-1/',
+          'path': 'nested-folder-1/index.json'
+        },
+        {
+          'directory': 'nested-folder-2/',
+          'path': 'nested-folder-2/index.json'
+        },
+        {
+          'directory': 'nested-folder-1/nested-folder-1-1/',
+          'path': 'nested-folder-1/nested-folder-1-1/index.json'
+        }
+      ];
+
+      expect(contents).to.contain("nested-folder-1/");
+      expect(contents).to.contain("nested-folder-1/faq.json");
+      expect(contents).to.contain("nested-folder-1/nested-folder-1-1/");
+      expect(contents).to.contain("nested-folder-1/nested-folder-1-1/index.json");
+      expect(contents).to.not.contain("nested-folder-1/nested-folder-1-1/faq.json");
+      expect(JSON.parse(contents)).to.deep.equal(expectedOutput);
+    });
+
+    fi.on("end", done);
+
+    gulp.src("test/fixtures/**/*.yml")
+      .pipe(fi)
+      .pipe(gulp.dest("test"));
+  });
+
   it("emits an error if given a stream", function (done) {
 
     let srcFile = new gutil.File({

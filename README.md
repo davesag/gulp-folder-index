@@ -16,12 +16,13 @@ Then, add it to your `gulpfile.js`:
 
 ```javascript
 let folderIndex = require("gulp-folder-index");
-  
+
 gulp.src('app/**/*.yml')
   .pipe(folderIndex({
     extension: '.json',       // default
     filename: 'index.json',   // default
-    prefix: ''                // default
+    prefix: '',               // default
+    directory: false          // default
   }))
   .pipe(gulp.dest('dist'));
 
@@ -94,6 +95,35 @@ Given the directory structure above, specifiying `extension: 'html'` would gener
   "folder-1/faqs.html",
   "folder-1/folder2/something.html",
   "folder-3/folder-4/something-else.html"
+]
+```
+
+#### options.directory
+Type: `Boolean`
+Default: false
+
+An extension boolean to generate json with directory and path.
+
+Given the directory structure above, specifiying `directory: true` would generate this JSON:
+
+```json
+[
+  {
+    "directory": "",
+    "path": "hello-world.json"
+  },
+  {
+    "directory": "folder-1/",
+    "path": "folder-1/faqs.json"
+  },
+  {
+    "directory": "folder-1/folder2/",
+    "path": "folder-1/folder2/something.json"
+  },
+  {
+    "directory": "folder-3/folder-4/",
+    "path": "folder-3/folder-4/something-else.json"
+  }
 ]
 ```
 
